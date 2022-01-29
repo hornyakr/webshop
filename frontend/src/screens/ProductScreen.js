@@ -15,8 +15,10 @@ export default function ProductScreen() {
     <div>
       <Link to="/">
         <div className="d-flex align-items-center pb-3">
-          <i class="fa fa-chevron-left" aria-hidden="true"></i>
-          <div className="ps-2 textLarger">Vissza a Főoldalra</div>
+          <div>
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+          </div>
+          <div className="ps-3 textLarger">Vissza a Főoldalra</div>
         </div>
       </Link>
       <div className="row g-5">
