@@ -7,6 +7,8 @@ import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 
 function App() {
+  const yearNow = new Date().getFullYear();
+
   return (
     <BrowserRouter>
       <div>
@@ -29,8 +31,8 @@ function App() {
             <Route path="/product/:id" element={<ProductScreen />}></Route>
           </Routes>
         </main>
-        <footer className="d-flex justify-content-center">
-          Minden jog fenntartva
+        <footer className="d-flex justify-content-center position-fixed fixed-bottom">
+          Hornyák Richárd &copy; 2022 - {yearNow} Minden jog fenntartva
         </footer>
       </div>
     </BrowserRouter>
