@@ -1,49 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 import Rating from "../components/Rating";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import { detailsProduct } from "../actions/productActions";
 
 export default function ProductScreen() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
 
   useEffect(() => {
-    const fetcData = async () => {
-      try {
-        setLoading(true);
-        const { data } = await axios.get("/api/products");
-        setLoading(false);
-        setProducts(data);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-    fetcData();
-  }, []);
-
-  const { id } = useParams();
-  const product = products.find((x) => x._id == id);
-  if (!product) {
-    return <div>A termék nem elérhető.</div>;
-  }
+    dispatch(detailsProduct(id));
+  }, [dispatch, id]);
 
   return (
     <div className="container-fluid">
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
-        <MessageBox>{error}</MessageBox>
+        <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <>
+        <div>
           <Link to="/">
             <div className="d-flex align-items-center pb-3">
               <div>
-                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                <i className="fa fa-chevron-left" aria-hidden="true"></i>
               </div>
               <div className="ps-3 textLarger">Vissza a Főoldalra</div>
             </div>
@@ -113,7 +98,7 @@ export default function ProductScreen() {
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
