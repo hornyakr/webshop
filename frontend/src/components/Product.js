@@ -5,7 +5,7 @@ export default function Product(props) {
   const { product } = props;
 
   return (
-    <div key={product._id} className="col-sm-6 col-md-3 col-xxl-1">
+    <div key={product._id} className="col-sm-6 col-md-3 col-xxl-2">
       <div className="card h-100">
         <a href={`/product/${product._id}`}>
           <img className="card-img" src={product.image} alt={product.name} />
