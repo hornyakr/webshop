@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Rating from "../components/Rating";
@@ -7,15 +7,21 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { detailsProduct } from "../actions/productActions";
 
-export default function ProductScreen() {
+export default function ProductScreen(props) {
   const dispatch = useDispatch();
+
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [qty, setQty] = useState(1);
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
   useEffect(() => {
     dispatch(detailsProduct(id));
   }, [dispatch, id]);
+
+  const addToCartHandler = () => navigate(`/cart/${id}?qty=${qty}`);
 
   return (
     <div className="container-fluid">
@@ -88,11 +94,38 @@ export default function ProductScreen() {
                         </div>
                       </div>
                     </li>
-                    <li>
-                      <button className="button-primary button-block">
-                        Kosárhoz adás
-                      </button>
-                    </li>
+                    {product.countInStock > 0 && (
+                      <>
+                        <li>
+                          <div className="d-flex flex-wrap justify-content-between align-items-end">
+                            <div>Mennyiség</div>
+                            <div>
+                              <select
+                                className="form-select"
+                                value={qty}
+                                onChange={(e) => setQty(e.target.value)}
+                              >
+                                {[...Array(product.countInStock).keys()].map(
+                                  (x) => (
+                                    <option key={x + 1} value={x + 1}>
+                                      {x + 1}
+                                    </option>
+                                  )
+                                )}
+                              </select>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <button
+                            onClick={addToCartHandler}
+                            className="button-primary button-block"
+                          >
+                            Kosárhoz adás
+                          </button>
+                        </li>
+                      </>
+                    )}
                   </ul>
                 </div>
               </div>
