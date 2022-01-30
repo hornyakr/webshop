@@ -7,10 +7,10 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { detailsProduct } from "../actions/productActions";
 
-export default function ProductScreen(props) {
+export default function ProductScreen() {
   const dispatch = useDispatch();
 
-  const { id } = useParams();
+  const { productId } = useParams();
   const navigate = useNavigate();
 
   const [qty, setQty] = useState(1);
@@ -18,10 +18,10 @@ export default function ProductScreen(props) {
   const { loading, error, product } = productDetails;
 
   useEffect(() => {
-    dispatch(detailsProduct(id));
-  }, [dispatch, id]);
+    dispatch(detailsProduct(productId));
+  }, [dispatch, productId]);
 
-  const addToCartHandler = () => navigate(`/cart/${id}?qty=${qty}`);
+  const addToCartHandler = () => navigate(`/cart/${productId}?qty=${qty}`);
 
   return (
     <div className="container-fluid">

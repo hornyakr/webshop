@@ -1,10 +1,9 @@
 import React from "react";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
-export default function CartScreen(props) {
-  const { id } = useParams();
+export default function CartScreen() {
+  const { productId } = useParams();
   const { search } = useLocation();
-  const { searchParams } = useSearchParams();
 
   const qty = search ? Number(search.split("=")[1]) : 1;
 
@@ -12,7 +11,7 @@ export default function CartScreen(props) {
     <div>
       <h1>Cart Screen</h1>
       <p>
-        ADD TO CART : ProductId: {id} Qty: {qty}
+        ADD TO CART : ProductId: {productId} Qty: {qty}
       </p>
     </div>
   );

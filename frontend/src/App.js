@@ -29,8 +29,11 @@ function App() {
         <main className="container-fluid container-xxl my-3">
           <Routes>
             <Route path="/" element={<HomeScreen />} exact></Route>
-            <Route path="/product/:id" element={<ProductScreen />}></Route>
-            <Route path="/cart/:id" element={<CartScreen />}></Route>
+            <Route
+              path="/product/:productId"
+              element={<ProductScreen />}
+            ></Route>
+            <Route path="/cart/:productId" element={<CartScreen />}></Route>
           </Routes>
         </main>
         <footer className="d-flex justify-content-center position-fixed fixed-bottom">
