@@ -63,10 +63,6 @@ a.brand {
   background-color: #fcf7fc;
 }
 
-img {
-  max-width: 100%;
-}
-
 button {
   padding: 0.5rem;
   border-radius: 0.3rem !important;
@@ -84,6 +80,10 @@ button:hover {
 }
 .button-block {
   width: 100%;
+}
+
+.cartFormSelect {
+  width: 5rem !important;
 }
 
 /* Rating */

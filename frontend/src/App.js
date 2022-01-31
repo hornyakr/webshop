@@ -1,14 +1,17 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
+import { useSelector } from "react-redux";
 
 function App() {
   const yearNow = new Date().getFullYear();
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
   return (
     <BrowserRouter>
@@ -16,13 +19,15 @@ function App() {
         <header className="container-fluid p-1">
           <div className="d-flex justify-content-between align-items-center">
             <div>
-              <a className="brand" href="/">
+              <Link className="brand" to="/">
                 Webshop
-              </a>
+              </Link>
             </div>
             <div>
-              <a href="/cart">Kosár</a>
-              <a href="/signIn">Bejelentkezés</a>
+              <Link to="/cart">
+                Kosár {cartItems.length > 0 && <span>{cartItems.length}</span>}
+              </Link>
+              <Link to="/signIn">Bejelentkezés</Link>
             </div>
           </div>
         </header>
