@@ -1,13 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Link,
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
-import { addToCart } from "../actions/cartActions";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { addToCart, removeFromCart } from "../actions/cartActions";
 import MessageBox from "../components/MessageBox";
 
 export default function CartScreen() {
@@ -26,21 +20,23 @@ export default function CartScreen() {
     }
   }, [dispatch, productId, qty]);
 
-  const removeFromCartHandler = (id) => {};
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
+  };
   const checkOutHandler = () => {
     navigate(`/signIn?redirect=shipping`);
   };
 
   return (
     <div>
-      <h1>Bevásárló lista</h1>
-      {cartItems.length === 0 ? (
-        <MessageBox>
-          A kosár üres. <Link to="/">Keress Terméket!</Link>
-        </MessageBox>
-      ) : (
-        <div className="row g-3">
-          <div className="col-sm-9">
+      <div className="row g-3">
+        <div className="col-sm-9">
+          <h1>Bevásárló lista</h1>
+          {cartItems.length === 0 ? (
+            <MessageBox>
+              A kosár üres. <Link to="/">Keress Terméket!</Link>
+            </MessageBox>
+          ) : (
             <ul>
               {cartItems.map((item) => (
                 <li key={item.product}>
@@ -84,39 +80,38 @@ export default function CartScreen() {
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="col-sm-3">
-            <div className="card sticky-top">
-              <div className="card-body">
-                <ul>
-                  <li>
-                    <h3>
-                      Összesen -{" "}
-                      <strong>
-                        {cartItems.reduce((a, c) => a + c.qty, 0)}
-                      </strong>
-                      db termék:{" "}
-                      <strong>
-                        {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
-                      </strong>
-                    </h3>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={checkOutHandler}
-                      className="button-primary button-block"
-                      disabled={cartItems.length === 0}
-                    >
-                      Vásárlás
-                    </button>
-                  </li>
-                </ul>
-              </div>
+          )}
+        </div>
+        <div className="col-sm-3">
+          <div className="card sticky-top">
+            <div className="card-body">
+              <ul>
+                <li>
+                  <h3>
+                    Összesen{" "}
+                    <strong>{cartItems.reduce((a, c) => a + c.qty, 0)}</strong>
+                    db termék:{" "}
+                    <strong>
+                      {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                    </strong>{" "}
+                    Huf
+                  </h3>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={checkOutHandler}
+                    className="button-primary button-block"
+                    disabled={cartItems.length === 0}
+                  >
+                    Vásárlás
+                  </button>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
