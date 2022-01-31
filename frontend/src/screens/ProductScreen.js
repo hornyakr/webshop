@@ -40,10 +40,10 @@ export default function ProductScreen() {
             </div>
           </Link>
           <div className="row g-5">
-            <div className="col-sm-6 col2">
-              <img src={product.image} alt={product.name} />
+            <div className="col-sm-6">
+              <img className="w-100" src={product.image} alt={product.name} />
             </div>
-            <div className="col-sm-3 col1">
+            <div className="col-sm-3">
               <div className="sticky-top">
                 <ul>
                   <li className="mt-0">
@@ -68,7 +68,7 @@ export default function ProductScreen() {
                 </ul>
               </div>
             </div>
-            <div className="col-sm-3 col1">
+            <div className="col-sm-3">
               <div className="card sticky-top">
                 <div className="card-body">
                   <ul>
