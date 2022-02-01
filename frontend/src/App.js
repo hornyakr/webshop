@@ -6,14 +6,21 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SignInScreen from "./screens/SignInScreen";
+import { signOut } from "./actions/userActions";
 
 function App() {
   const yearNow = new Date().getFullYear();
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { userInfo } = userSignIn;
 
+  const dispatch = useDispatch();
+  const singOutHandler = () => {
+    dispatch(signOut());
+  };
   return (
     <BrowserRouter>
       <div>
@@ -39,7 +46,20 @@ function App() {
                   )}
                 </button>
               </Link>
-              <Link to="/signIn">Bejelentkezés</Link>
+              {userInfo ? (
+                <div className="dropdown">
+                  <Link to="#">
+                    {userInfo.name} <i className="fa fa-caret-down fa-sm"></i>
+                  </Link>
+                  <div className="dropdown-content">
+                    <Link to="#signOut" onClick={singOutHandler}>
+                      Kijelentkezés
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                <Link to="/signIn">Bejelentkezés</Link>
+              )}
             </div>
           </div>
         </header>
