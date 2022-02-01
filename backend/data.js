@@ -1,7 +1,22 @@
+import bcrypt from "bcryptjs";
+
 const data = {
+  users: [
+    {
+      name: "Admin",
+      email: "admin@admin.com",
+      password: bcrypt.hashSync("HusWL98.?fG", 8),
+      isAdmin: true,
+    },
+    {
+      name: "Customer1",
+      email: "customer1@admin.com",
+      password: bcrypt.hashSync("HusWL98.?fG", 8),
+      isAdmin: false,
+    },
+  ],
   products: [
     {
-      _id: 1,
       name: "Nike Slim Shirt",
       category: "Shirts",
       image: "/images/p1.jpg",
@@ -13,7 +28,6 @@ const data = {
       countInStock: 6,
     },
     {
-      _id: 2,
       name: "Adidas Fit Shirt",
       category: "Shirts",
       image: "/images/p1.jpg",
@@ -25,7 +39,6 @@ const data = {
       countInStock: 2,
     },
     {
-      _id: 3,
       name: "Lacoste Slim Shirt",
       category: "Shirts",
       image: "/images/p1.jpg",
@@ -37,7 +50,6 @@ const data = {
       countInStock: 36,
     },
     {
-      _id: 4,
       name: "Nike Slim Pant",
       category: "Pants",
       image: "/images/p1.jpg",
@@ -49,7 +61,6 @@ const data = {
       countInStock: 16,
     },
     {
-      _id: 5,
       name: "Puma Slim Pant",
       category: "Pants",
       image: "/images/p1.jpg",
@@ -61,7 +72,6 @@ const data = {
       countInStock: 8,
     },
     {
-      _id: 6,
       name: "Adidas Slim Pant",
       category: "Pants",
       image: "/images/p1.jpg",
