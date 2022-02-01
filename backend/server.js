@@ -1,10 +1,17 @@
 import express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
 import productRouter from "./routers/productRouter.js";
 import userRouter from "./routers/userRouter.js";
 
+dotenv.config();
+
 const app = express();
-mongoose.connect("mongodb://127.0.0.1:27017/webshop", {
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+mongoose.connect("mongodb://127.0.0.1/webshop", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
