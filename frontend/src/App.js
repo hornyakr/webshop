@@ -9,6 +9,7 @@ import CartScreen from "./screens/CartScreen";
 import { useDispatch, useSelector } from "react-redux";
 import SignInScreen from "./screens/SignInScreen";
 import { signOut } from "./actions/userActions";
+import RegisterScreen from "./screens/RegisterScreen";
 
 function App() {
   const yearNow = new Date().getFullYear();
@@ -73,6 +74,7 @@ function App() {
             <Route path="/cart/:productId" element={<CartScreen />}></Route>
             <Route path="/cart" element={<CartScreen />}></Route>
             <Route path="/signIn" element={<SignInScreen />}></Route>
+            <Route path="/register" element={<RegisterScreen />}></Route>
           </Routes>
         </main>
         <footer className="d-flex justify-content-center position-fixed fixed-bottom">

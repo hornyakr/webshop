@@ -1,38 +1,59 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { signIn } from "../actions/userActions";
+import { register } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
-export default function SignInScreen() {
+export default function RegisterScreen() {
   const { search } = useLocation();
   const navigate = useNavigate();
+  const userRegister = useSelector((state) => state.userRegister);
   const userSignIn = useSelector((state) => state.userSignIn);
-  const { userInfo, loading, error } = userSignIn;
+  const { registerInfo, loading, error } = userRegister;
+  const { userInfo } = userSignIn;
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [comfirmPassword, setComfirmPassword] = useState("");
 
   const redirect = search ? search.split("=")[1] : "/";
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(signIn(email, password));
+    if (password !== comfirmPassword) {
+      alert("A jelszó nem egyezik!");
+    } else {
+      dispatch(register(name, email, password));
+    }
   };
   useEffect(() => {
-    if (userInfo) {
+    if (registerInfo && userInfo) {
       navigate(redirect);
     }
-  }, [navigate, redirect, userInfo]);
+  }, [navigate, redirect, registerInfo, userInfo]);
   return (
     <div className="container">
       <div className="card">
         <div className="card-body">
-          <h2 className="ps-2">Bejelentkezés</h2>
+          <h2 className="ps-2">Felhasználó létrehozása</h2>
           {loading && <LoadingBox></LoadingBox>}
           {error && <MessageBox variant="danger">{error}</MessageBox>}
           <form className="container" onSubmit={submitHandler}>
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label">
+                Név
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                placeholder="Név megadása"
+                required
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">
                 Email cím
@@ -59,22 +80,38 @@ export default function SignInScreen() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            <div className="mb-3">
+              <label htmlFor="comfirmPassword" className="form-label">
+                Jelszó megerősítése
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                id="comfirmPassword"
+                placeholder="Jelszó megadása"
+                required
+                onChange={(e) => setComfirmPassword(e.target.value)}
+              />
+            </div>
             <div className="mb-3 form-check">
-              <input type="checkbox" className="form-check-input" id="check" />
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="check"
+                required
+              />
               <label className="form-check-label" htmlFor="check">
-                Bejelentkezve maradok
+                Elfogadom a felhasználói feltételeket
               </label>
             </div>
             <button type="submit" className="btn btn-primary">
-              Bejelentkezés
+              Regisztrálok
             </button>
             <div>
               <label />
               <div>
-                Új felhasználó?{" "}
-                <Link to={`/register?redirect=${redirect}`}>
-                  Felhasználó létrehozása
-                </Link>
+                Már regisztrált nálunk?{" "}
+                <Link to={`/signIn?redirect=${redirect}`}>Bejelentkezés</Link>
               </div>
             </div>
           </form>
