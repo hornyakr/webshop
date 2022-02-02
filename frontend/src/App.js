@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SignInScreen from "./screens/SignInScreen";
 import { signOut } from "./actions/userActions";
 import RegisterScreen from "./screens/RegisterScreen";
+import ErrorScreen from "./screens/ErrorScreen";
 
 function App() {
   const yearNow = new Date().getFullYear();
@@ -23,10 +24,10 @@ function App() {
     dispatch(signOut());
   };
   return (
-    <BrowserRouter>
+    <Router>
       <div>
         <header className="container-fluid p-1">
-          <div className="d-flex justify-content-between align-items-center">
+          <nav className="d-flex justify-content-between align-items-center">
             <div>
               <Link className="brand" to="/">
                 Webshop
@@ -62,11 +63,10 @@ function App() {
                 <Link to="/signIn">Bejelentkezés</Link>
               )}
             </div>
-          </div>
+          </nav>
         </header>
         <main className="container-fluid container-xxl my-3">
           <Routes>
-            <Route path="/" element={<HomeScreen />} exact></Route>
             <Route
               path="/product/:productId"
               element={<ProductScreen />}
@@ -82,7 +82,7 @@ function App() {
           Hornyák Richárd &copy; 2022 - {yearNow} Minden jog fenntartva
         </footer>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 

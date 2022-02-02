@@ -8,16 +8,17 @@ import MessageBox from "../components/MessageBox";
 export default function RegisterScreen() {
   const { search } = useLocation();
   const navigate = useNavigate();
+  const redirect = search ? search.split("=")[1] : "/";
+
   const userRegister = useSelector((state) => state.userRegister);
-  const userSignIn = useSelector((state) => state.userSignIn);
   const { registerInfo, loading, error } = userRegister;
+  const userSignIn = useSelector((state) => state.userSignIn);
   const { userInfo } = userSignIn;
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [comfirmPassword, setComfirmPassword] = useState("");
-
-  const redirect = search ? search.split("=")[1] : "/";
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {

@@ -7,24 +7,26 @@ import MessageBox from "../components/MessageBox";
 
 export default function SignInScreen() {
   const { search } = useLocation();
-  const navigate = useNavigate();
+  const redirect = search ? search.split("=")[1] : "/";
+
   const userSignIn = useSelector((state) => state.userSignIn);
   const { userInfo, loading, error } = userSignIn;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const redirect = search ? search.split("=")[1] : "/";
-
   const dispatch = useDispatch();
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(signIn(email, password));
-  };
+  const navigate = useNavigate();
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
     }
   }, [navigate, redirect, userInfo]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(signIn(email, password));
+  };
   return (
     <div className="container">
       <div className="card">
