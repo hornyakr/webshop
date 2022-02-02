@@ -75,6 +75,7 @@ function App() {
             <Route path="/cart" element={<CartScreen />}></Route>
             <Route path="/signIn" element={<SignInScreen />}></Route>
             <Route path="/register" element={<RegisterScreen />}></Route>
+            <Route path="*" element={<ErrorScreen />}></Route>
           </Routes>
         </main>
         <footer className="d-flex justify-content-center position-fixed fixed-bottom">
