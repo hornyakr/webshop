@@ -13,6 +13,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import ShippingAddressScreen from "./screens/ShippingAddressScreen";
 import ErrorScreen from "./screens/ErrorScreen";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 
 function App() {
   const yearNow = new Date().getFullYear();
@@ -69,6 +70,7 @@ function App() {
         </header>
         <main className="container-fluid container-xxl my-3">
           <Routes>
+            <Route path="/placeorder" element={<PlaceOrderScreen />}></Route>
             <Route path="/payment" element={<PaymentMethodScreen />}></Route>
             <Route
               path="/product/:productId"

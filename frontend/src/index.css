@@ -157,3 +157,7 @@ button:hover {
   border-top-color: #f08000;
   color: #f08000;
 }
+
+.placeOrderSummary > li {
+  margin-bottom: 1px solid rgba(0, 0, 0, 0.6);
+}

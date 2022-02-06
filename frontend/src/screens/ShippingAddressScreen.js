@@ -25,12 +25,12 @@ export default function ShippingAddressScreen() {
     shippingAddress ? shippingAddress.country : ""
   );
 
-  const dispatch = useDispatch();
   useEffect(() => {
     if (!userInfo) {
       navigate("/signIn");
     }
   }, [navigate, userInfo]);
+  const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
