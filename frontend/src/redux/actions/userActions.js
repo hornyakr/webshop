@@ -1,28 +1,23 @@
 import Axios from "axios";
-import {
-  USER_REGISTER_FAIL,
-  USER_REGISTER_REQUEST,
-  USER_REGISTER_SUCCESS,
-  USER_SIGNIN_FAIL,
-  USER_SIGNIN_REQUEST,
-  USER_SIGNIN_SIGNOUT,
-  USER_SIGNIN_SUCCESS,
-} from "../constants/userConstant";
+import * as actions from "../constants";
 
 export const register = (name, email, password) => async (dispatch) => {
-  dispatch({ type: USER_REGISTER_REQUEST, payload: { name, email, password } });
+  dispatch({
+    type: actions.USER_REGISTER_REQUEST,
+    payload: { name, email, password },
+  });
   try {
     const { data } = await Axios.post("/api/users/register", {
       name,
       email,
       password,
     });
-    dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
-    dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
+    dispatch({ type: actions.USER_REGISTER_SUCCESS, payload: data });
+    dispatch({ type: actions.USER_SIGNIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
-      type: USER_REGISTER_FAIL,
+      type: actions.USER_REGISTER_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -32,14 +27,14 @@ export const register = (name, email, password) => async (dispatch) => {
 };
 
 export const signIn = (email, password) => async (dispatch) => {
-  dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
+  dispatch({ type: actions.USER_SIGNIN_REQUEST, payload: { email, password } });
   try {
     const { data } = await Axios.post("/api/users/signIn", { email, password });
-    dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
+    dispatch({ type: actions.USER_SIGNIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
-      type: USER_SIGNIN_FAIL,
+      type: actions.USER_SIGNIN_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -51,5 +46,11 @@ export const signIn = (email, password) => async (dispatch) => {
 export const signOut = () => (dispatch) => {
   localStorage.removeItem("userInfo");
   //localStorage.removeItem("cartItems");
-  dispatch({ type: USER_SIGNIN_SIGNOUT });
+  localStorage.removeItem("registerInfo");
+  //localStorage.removeItem("shippingAddress");
+
+  dispatch({ type: actions.USER_SIGNIN_SIGNOUT });
+  //dispatch({ type: actions.CART_REMOVE_ALL });
+  dispatch({ type: actions.USER_REGISTER_REMOVE });
+  //dispatch({ type: actions.CART_REMOVE_SHIPPING_ADDRESS });
 };

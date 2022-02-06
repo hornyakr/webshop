@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
+
 import { cartReducer } from "./reducers/cartReducers";
 import {
   productDetailsReducer,
@@ -22,7 +23,8 @@ const initialState = {
       : [],
     shippingAddress: localStorage.getItem("shippingAddress")
       ? JSON.parse(localStorage.getItem("shippingAddress"))
-      : {},
+      : null,
+    paymentMethod: "PayPal",
   },
 };
 const reducer = combineReducers({

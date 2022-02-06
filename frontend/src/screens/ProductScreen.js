@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Rating from "../components/Rating";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-import { detailsProduct } from "../actions/productActions";
+import { detailsProduct } from "../redux/actions/productActions";
 
 export default function ProductScreen() {
   const dispatch = useDispatch();
