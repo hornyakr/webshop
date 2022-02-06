@@ -12,6 +12,7 @@ import { signOut } from "./redux/actions/userActions";
 import RegisterScreen from "./screens/RegisterScreen";
 import ShippingAddressScreen from "./screens/ShippingAddressScreen";
 import ErrorScreen from "./screens/ErrorScreen";
+import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 
 function App() {
   const yearNow = new Date().getFullYear();
@@ -68,6 +69,7 @@ function App() {
         </header>
         <main className="container-fluid container-xxl my-3">
           <Routes>
+            <Route path="/payment" element={<PaymentMethodScreen />}></Route>
             <Route
               path="/product/:productId"
               element={<ProductScreen />}
@@ -76,10 +78,7 @@ function App() {
             <Route path="/cart" element={<CartScreen />}></Route>
             <Route path="/signIn" element={<SignInScreen />}></Route>
             <Route path="/register" element={<RegisterScreen />}></Route>
-            <Route
-              path="/signIn/shipping"
-              element={<ShippingAddressScreen />}
-            ></Route>
+            <Route path="/shipping" element={<ShippingAddressScreen />}></Route>
             <Route path="/" element={<HomeScreen />} exact></Route>
             <Route path="*" element={<ErrorScreen />}></Route>
           </Routes>

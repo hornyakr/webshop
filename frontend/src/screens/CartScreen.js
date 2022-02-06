@@ -5,14 +5,13 @@ import { addToCart, removeFromCart } from "../redux/actions/cartActions";
 import MessageBox from "../components/MessageBox";
 
 export default function CartScreen() {
-  const { productId } = useParams();
-  const { search } = useLocation();
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  const navigate = useNavigate();
 
+  const { search } = useLocation();
   const qty = search ? Number(search.split("=")[1]) : 1;
 
+  const { productId } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     if (productId) {
@@ -20,13 +19,13 @@ export default function CartScreen() {
     }
   }, [dispatch, productId, qty]);
 
+  const navigate = useNavigate();
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
   const checkOutHandler = () => {
-    navigate(`/signIn?redirect=shipping`);
+    navigate("/signIn?redirect=shipping");
   };
-
   return (
     <div>
       <div className="row g-3">

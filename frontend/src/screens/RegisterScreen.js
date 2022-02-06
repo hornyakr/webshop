@@ -8,7 +8,7 @@ import MessageBox from "../components/MessageBox";
 export default function RegisterScreen() {
   const { search } = useLocation();
   const navigate = useNavigate();
-  const redirect = search ? search.split("=")[1] : "/";
+  const redirect = search ? search.split("=")[1] : "";
 
   const userRegister = useSelector((state) => state.userRegister);
   const { registerInfo, loading, error } = userRegister;
@@ -30,8 +30,8 @@ export default function RegisterScreen() {
     }
   };
   useEffect(() => {
-    if (registerInfo && userInfo) {
-      navigate(redirect);
+    if (userInfo) {
+      navigate(`/${redirect}`);
     }
   }, [navigate, redirect, registerInfo, userInfo]);
   return (

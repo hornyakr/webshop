@@ -5,9 +5,9 @@ import { signIn } from "../redux/actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
-export default function SignInScreen() {
+export default function SignInScreen(props) {
   const { search } = useLocation();
-  const redirect = search ? search.split("=")[1] : "/";
+  const redirect = search ? search.split("=")[1] : "";
 
   const userSignIn = useSelector((state) => state.userSignIn);
   const { userInfo, loading, error } = userSignIn;
@@ -19,9 +19,9 @@ export default function SignInScreen() {
   const navigate = useNavigate();
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      navigate(`/${redirect}`);
     }
-  }, [navigate, redirect, userInfo]);
+  }, [navigate, userInfo, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();
