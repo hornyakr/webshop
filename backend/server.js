@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import productRouter from "./routers/productRouter.js";
 import userRouter from "./routers/userRouter.js";
+import orderRouter from "./routers/orderRouter.js";
 
 dotenv.config();
 
@@ -12,12 +13,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect("mongodb://127.0.0.1/webshop", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 });
 
 app.get("/", (req, res) => {
-  res.send("Server is ready");
+    res.send("Server is ready");
 });
 
 /*app.get("/api/products/:id", (req, res) => {
@@ -34,12 +35,13 @@ app.get("/api/products", (req, res) => {
 
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
+app.use("/api/orders", orderRouter);
 
 app.use((err, req, res, next) => {
-  res.status(500).send({ message: err.message });
+    res.status(500).send({ message: err.message });
 });
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log(`Serve at http://localhost:${port}`);
+    console.log(`Serve at http://localhost:${port}`);
 });

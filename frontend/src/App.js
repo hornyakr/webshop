@@ -30,13 +30,13 @@ function App() {
     <Router>
       <div>
         <header className="container-fluid p-1">
-          <nav className="d-flex justify-content-between align-items-center">
+          <nav className="d-flex justify-content-between align-items-center py-2">
             <div>
               <Link className="brand" to="/">
                 Webshop
               </Link>
             </div>
-            <div>
+            <div className="mx-1">
               <Link to="/cart">
                 <button
                   type="button"
