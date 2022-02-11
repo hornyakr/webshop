@@ -1,11 +1,24 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import CheckoutSteps from "../components/CheckoutSteps";
+import { createOrder } from "../redux/actions/orderActions";
+import { ORDER_CREATE_RESET } from "../redux/constants";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 
 export default function PlaceOrderScreen() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, success, error, order } = orderCreate;
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order._id}`);
+      dispatch({ type: ORDER_CREATE_RESET });
+    }
+  }, [dispatch, navigate, order, success]);
   const cart = useSelector((state) => state.cart);
   const { shippingAddress, paymentMethod, cartItems } = cart;
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -25,7 +38,7 @@ export default function PlaceOrderScreen() {
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
   const placeOrderHandler = () => {
-    //asd
+    dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   };
   return (
     <div>
@@ -129,6 +142,8 @@ export default function PlaceOrderScreen() {
                     Véglegesítés
                   </button>
                 </li>
+                {loading && <LoadingBox></LoadingBox>}
+                {error && <MessageBox variant="danger">{error}</MessageBox>}
               </ul>
             </div>
           </div>
