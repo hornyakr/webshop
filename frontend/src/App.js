@@ -14,6 +14,7 @@ import ShippingAddressScreen from "./screens/ShippingAddressScreen";
 import ErrorScreen from "./screens/ErrorScreen";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import OrderScreen from "./screens/OrderScreen";
 
 function App() {
   const yearNow = new Date().getFullYear();
@@ -81,6 +82,7 @@ function App() {
             <Route path="/signIn" element={<SignInScreen />}></Route>
             <Route path="/register" element={<RegisterScreen />}></Route>
             <Route path="/shipping" element={<ShippingAddressScreen />}></Route>
+            <Route path="/order/:id" element={<OrderScreen />}></Route>
             <Route path="/" element={<HomeScreen />} exact></Route>
             <Route path="*" element={<ErrorScreen />}></Route>
           </Routes>

@@ -23,3 +23,22 @@ export const createOrder = (order) => async (dispatch, getState) => {
     });
   }
 };
+
+export const detailsOrder = (orderId) => async (dispatch, getState) => {
+  dispatch({ type: actions.ORDER_DETAILS_REQUEST, payload: orderId });
+  const {
+    userSignIn: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.get(`/api/orders/${orderId}`, {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type: actions.ORDER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: actions.ORDER_DETAILS_FAIL, payload: message });
+  }
+};
