@@ -5,7 +5,7 @@ import { signIn } from "../redux/actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
-export default function SignInScreen(props) {
+export default function SignInScreen() {
   const { search } = useLocation();
   const redirect = search ? search.split("=")[1] : "";
 
